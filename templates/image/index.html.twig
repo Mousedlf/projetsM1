@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ImageController!{% endblock %}
+
+{% block body %}
+
+ <a href="{{ path('app_project') }}" class="btn btn-secondary">retour vers projets</a>
+ <h1>images</h1>
+
+    <div class="row">
+        {% for image in project.images %}
+            <div class="card col-4">
+                <img src="{{ vich_uploader_asset(image, 'imageFile') }}"  alt="">{#|imagine_filter('apercu')#}
+                <a href="{{ path('delete_project', {id:project.id}) }}" class="btn btn-danger">supprimer </a>
+
+            </div>
+        {% endfor %}
+
+    </div>
+
+
+
+ <div class="mt-5">
+   {{ form_start(imageForm, {'action': path('add_image', {id:project.id}), 'method': 'POST'}) }}
+   <div class="d-flex mt-3">
+    {{ form_widget(imageForm.imageFile)}}
+    <button type="submit" class="btn btn-success">save</button>
+   </div>
+   {{ form_end(imageForm) }}
+ </div>
+
+
+{% endblock %}
