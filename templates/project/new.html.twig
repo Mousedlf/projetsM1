@@ -10,18 +10,19 @@
     {{ form_start(projectForm) }}
     {{ form_row(projectForm.name) }}
     {{ form_row(projectForm.description) }}
+    {{ form_label(projectForm.teamMembers) }}
 
     <ul class="teammember"
         data-index="{{ projectForm.teamMembers|length > 0 ? projectForm.teamMembers|last.vars.name + 1 : 0 }}"
         data-prototype="{{ form_widget(projectForm.teamMembers.vars.prototype)|e('html_attr') }}"
     ></ul>
 
-    <p>l'ajout d'images se fait après, depuis le projet</p>
     <button type="button" class="add_item_link btn btn-warning" data-collection-holder-class="teammember">Ajouter un membre du groupe</button>
     <div class="div mt-5">
+        <p class="text-secondary">Remarque: l'ajout d'images se fait après, depuis le projet avec le bouton "traiter les images"</p>
         <button type="submit" class="btn btn-primary">enregistrer le projet</button>
 
-    </div>
+       </div>
 
     {{ form_end(projectForm) }}
 

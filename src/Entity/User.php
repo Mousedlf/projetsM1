@@ -38,6 +38,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Like::class)]
     private Collection $likes;
 
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Formation $formation = null;
+
     public function __construct()
     {
         $this->likes = new ArrayCollection();
@@ -156,6 +159,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $like->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFormation(): ?Formation
+    {
+        return $this->formation;
+    }
+
+    public function setFormation(?Formation $formation): self
+    {
+        $this->formation = $formation;
 
         return $this;
     }

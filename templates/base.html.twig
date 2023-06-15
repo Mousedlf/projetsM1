@@ -19,36 +19,54 @@
     </head>
     <body>
 
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+        body{
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-4 mb-5">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ path('app_project') }}">HOME</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <div class="container-fluid d-flex justify-content-between">
+            <a class="navbar-brand" href="{{ path('app_project') }}">PROJETS M1</a>
+            {% if app.user is null %}
+            {% elseif app.user.formation.id == 1 %} {# si deja projet alors pas bouton #}
+                <a href="{{ path('new_project') }}" class="btn btn-info">appui ici pour ajouter ton projet {{ app.user.username }}</a>
+            {% endif %}
+                       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarColor01">
+           <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"></a>
-                    </li>
+                    {% if app.user %}
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-warning" href="{{ path('app_logout') }}">Se deconnecter</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-info me-2" href="{{ path('app_login') }}">Se connecter</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-warning" href="{{ path('app_register') }}">S'inscrire</a>
+                        </li>
+
+                    {% endif %}
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-sm-2" type="search" placeholder="Search">
-                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                </form>
             </div>
         </div>
     </nav>
-    <div class="container vh-100">
+    <div class="container mh-100">
         {% block body %}{% endblock %}
 
     </div>
 
-    <div class="bg-primary py-4 mt-5">
+{#    <div class="bg-primary py-4 mt-5">
         <div class="container">
             <p class="text-white text-center">un footer</p>
 
         </div>
-    </div>
+    </div>#}
     </body>
 </html>
